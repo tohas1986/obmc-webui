@@ -1,0 +1,194 @@
+$nav__toplvlWidth: 125px;
+$nav__seclvlWidth: 240px;
+$nav__top-level-color: $base-01--01;
+$nav__second-level-color: $base-02--06;
+$nav__second-level-text-color: $base-02--01;
+
+//Navigation icons
+@mixin navIcons {
+  color: $primary-light;
+  fill: $primary-light;
+  max-height: 40px;
+  stroke-width: .5;
+  display: block;
+  margin: .5em auto;
+  .st0 {
+    fill: none;
+    stroke: $primary-light;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+  }
+  .st1 {
+    fill: none;
+    stroke: $primary-light;
+    stroke-width: 4;
+    stroke-miterlimit: 10;
+  }
+}
+
+.nav__wrapper {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+// Top level navigation
+#nav__top-level {
+  background: $nav__top-level-color;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: $nav__toplvlWidth;
+  overflow-y: auto;
+  li {
+    margin: 0;
+  }
+  > li > a,
+  > li > button {
+    height: 120px;
+  }
+  //svg icons
+  .nav-icon {
+    @include navIcons;
+    width: 100%;
+    svg {
+      width: 36px;
+      height: auto;
+    }
+  }
+  .nav-icon__control {
+    margin-bottom: 1em;
+    svg {
+      width: 30px;
+    }
+  }
+  .button, button, a {
+    background: transparent;
+    border: 0;
+    color: $primary-light;
+    fill: $primary-light;
+    width: 100%;
+    padding: 1em;
+    display: block;
+    text-align: center;
+    margin-bottom: 0;
+    white-space: normal;
+    border-radius: 0;
+    text-decoration: none;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid $border-color-02;
+    font-weight: normal;
+    font-size: .9em;
+    line-height: 1.2;
+    &:hover {
+      background: $primary-light;
+      fill: $primary-dark;
+      color: $primary-action;
+      padding: 1em;
+      border-radius: 0;
+      border-bottom: 1px solid $border-color-01;
+      .nav__icon-help__outer {
+        stroke: $primary-dark;
+      }
+      .nav__icon-help__inner {
+        fill: $primary-action;
+      }
+      .nav-icon {
+        fill: $primary-action;
+        color: $primary-action;
+        .st0 {
+          stroke: $primary-action;
+        }
+        .st1 {
+          fill: $primary-action;
+          color: $primary-action;
+          stroke: $primary-action;
+        }
+      }
+    }
+  }
+  .opened {
+    background: $nav__second-level-color;
+    fill: $primary-dark;
+    color: darken($primary-action, 10%);
+    border-bottom: 1px solid $border-color-01;
+    .nav-icon {
+      fill: $primary-action;
+      color: $primary-action;
+      .st0 {
+        stroke: $primary-action;
+      }
+      .st1 {
+        fill: $primary-action;
+        color: $primary-action;
+        stroke: $primary-action;
+      }
+    }
+  }
+
+  // Second Level Navigation
+  .nav__second-level {
+    position: fixed;
+    background: $nav__second-level-color;
+    top: 0;
+    bottom: 0;
+    left: -245px;
+    width: $nav__seclvlWidth;
+    z-index: -1;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: block;
+    @include fastTransition-all;
+    &.opened {
+      left: $nav__toplvlWidth;
+      box-shadow: 7px 0 28px -10px $base-02--02;
+      @include fastTransition-all;
+    }
+    a {
+      padding: 1.2em 1em 1.2em 1em;
+      display: block;
+      color: $primary-dark;
+      text-decoration: none;
+      position: relative;
+      font-weight: 400;
+      text-align: left;
+      border-bottom: 1px solid transparent;
+      &:hover {
+        background: $primary-light;
+      }
+    }
+
+    li {
+      a:after{
+        content: '\203A';
+        position: absolute;
+        font-size: 2em;
+        font-weight: 700;
+        top: 50%;
+        right: .6em;
+        transform: translateY(-59%);
+        color: $nav__second-level-text-color;
+        opacity: 0;
+      }
+      &.active {
+        a {font-weight: 700;}
+      }
+      &.active,
+      &:focus,
+      &:hover {
+        a {color: $nav__second-level-text-color;}
+        a:after {
+          opacity: 1;
+          right: .3em;
+          @include fastTransition-all;
+        }
+      }
+    }
+  }
+}

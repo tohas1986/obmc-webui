@@ -1,0 +1,18 @@
+// Overrides style for ngToast notifications
+.ng-toast {
+  margin-top: 9em;
+  .close {
+    margin: .3em;
+  }
+  .title {
+    font-weight: bold;
+  }
+  .ng-toast__message {
+    max-width: 400px;
+  }
+  .alert {
+    color: $text-01;
+    border-radius: 0;
+    text-align: left;
+  }
+}
